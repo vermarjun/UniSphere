@@ -6,9 +6,8 @@ import { MdEvent } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
 
 const Lfsb = styled.div.attrs({
-    className:"border-r-2 border-gray-500 w-1/4 h-full"
-})``;
-
+    className: "border-r-2 border-gray-500 w-1/4 h-full bg-black fixed", // Sidebar is fixed on left
+  })``;
 export default function Leftsidebar(){
     return (
         <Lfsb>
