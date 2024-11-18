@@ -1,28 +1,37 @@
 import Leftsidebar from "./Leftsidebar.styles.tw";
 import Rightsidebar from "./Rightsidebar.styles.tw";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
-import EventPage from "./Event/EventPage";
+import Home from "./Home";
 
 // The main content takes the remaining space between the sidebars
 const MainContent = styled.div.attrs({
-  className: "flex-1 h-full overflow-y-auto ml-1/4 mr-1/4", // Makes the content take the rest of the width and ensures scroll
+  className:"sm:h-full h-4/5 overflow-y-auto w-full sm:ml-80 sm:mr-96", // Makes the content take the rest of the width and ensures scroll
 })``;
 
 function Layout() {
   return (
     <>
-      <div className="flex justify-between items-center w-screen h-screen bg-black">
+      <div className="sm:flex sm:justify-between sm:items-center sm:w-screen sm:h-screen w-full h-full bg-black">
+        <div className="sm:hidden sticky top-0 h-20 w-full z-50 bg-[#00000f8] backdrop-blur-lg rounded-lg">
+          <Navbar/>
+        </div>
         {/* Left Sidebar (Fixed) */}
-        <Leftsidebar />
+        <Leftsidebar/>
+
 
         {/* Main Content (Between the sidebars) */}
         <MainContent>
-          <Outlet />
+          <Home/>
         </MainContent>
 
         {/* Right Sidebar (Fixed on right side) */}
-        <Rightsidebar />
+        <Rightsidebar/>
+        <div className="sm:hidden sticky bottom-0 h-12 w-full z-50 bg-black border-t border-neutral-600">
+          <Footer/>
+        </div>
       </div>
     </>
   );

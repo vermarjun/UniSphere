@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const Rfsb = styled.div.attrs({
-    className: "w-1/4 h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-500 p-2", // Increased width to 1/3
+    className: "w-2/6 h-full bg-black text-white overflow-y-auto fixed right-0 p-2 border-l-2 border-neutral-700 sm:block hidden", // Increased width to 1/3
   })``;
   
   const SectionBox = styled.div.attrs({
