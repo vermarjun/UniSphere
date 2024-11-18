@@ -58,7 +58,7 @@ export default function Leftsidebar(){
                             <button className="w-full hover:bg-[#71767b] text-lg bg-[#2b2d2f] transition-all rounded-full p-2 font-semibold">Sign up</button>
                         </div>
                         <div>
-                            <button className="w-full hover:bg-[#71767b] text-lg bg-[#2b2d2f] transition-all rounded-full p-2 font-semibold">Sign in</button>
+                            <button className="w-full hover:bg-[#71767b] text-lg bg-[#2b2d2f] transition-all rounded-full p-2 font-semibold">login</button>
                         </div>
                     </div>
                     <div className="flex items-center p-1 w-full border-2 rounded-full border-neutral-900 cursor-pointer hover:bg-neutral-900 transition-all">
