@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import Home from "./Home";
+import EventPage from "./Event/EventPage";
 
 
 // The main content takes the remaining space between the sidebars
@@ -25,7 +26,7 @@ function Layout() {
 
         {/* Main Content (Between the sidebars) */}
         <MainContent>
-          <Home/>
+          <EventPage/>
         </MainContent>
 
         {/* Right Sidebar (Fixed on right side) */}
