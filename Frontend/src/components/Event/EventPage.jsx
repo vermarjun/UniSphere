@@ -10,7 +10,7 @@ function EventCard({
   onRegister,
 }) {
   return (
-    <div className="max-w-lg w-full sm:mx-auto mx-2 border border-neutral-700 rounded-lg shadow-md">
+    <div className="max-w-md w-full sm:mx-auto border border-neutral-700 rounded-lg shadow-md">
       {/* Header */}
       <div className="flex items-center p-2 px-4 border-b border-neutral-700">
         <img

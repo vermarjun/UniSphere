@@ -12,6 +12,7 @@ const Lfsb = styled.div.attrs({
     className: "border-r-2 border-neutral-700 w-80 h-full bg-black fixed sm:block hidden", // Sidebar is fixed on left
   })``;
 export default function Leftsidebar(){
+    // const [settings, setSettings] = useState(false); //pip settings ke liye tha not using rn
     return (
         <Lfsb>
             <div className="text-white h-full w-full flex justify-center items-center">
@@ -68,14 +69,16 @@ export default function Leftsidebar(){
                                 <button className="">Username</button>
                                 <p className="text-sm font-light">@username</p>
                             </div>
-                            <div className={`hover:bg-[#2b2d2f] transition-all rounded-xl hover:cursor-pointer p-2`}>
+                            <div className={`hover:bg-[#2b2d2f] transition-all rounded-xl hover:cursor-pointer p-2`} onMouseOver={()=>setSettings(true)} onMouseLeave={()=>setSettings(false)}>
                                 <HiDotsVertical />
+                                {/* <div className={`${settings?"absolute":"hidden"} bottom-20 h-96 bg-green-900 transform w-48 border border-neutral-900 shadow-lg rounded-lg p-4`} onMouseOver={()=>setSettings(true)} onMouseLeave={()=>setSettings(false)}>
+        hi
+                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </Lfsb>
     )
 }
