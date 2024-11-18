@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import Home from "./Home";
 
+
 // The main content takes the remaining space between the sidebars
 const MainContent = styled.div.attrs({
   className:"sm:h-full h-4/5 overflow-y-auto w-full sm:ml-80 sm:mr-96", // Makes the content take the rest of the width and ensures scroll
