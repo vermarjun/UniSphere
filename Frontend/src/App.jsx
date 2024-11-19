@@ -3,26 +3,12 @@ import EventPage from "./components/Event/EventPage";
 import Marketplace from "./components/Marketplace";
 import Leftsidebar from "./components/Leftsidebar.styles.tw";
 import Rightsidebar from "./components/Rightsidebar.styles.tw";
+import Leaderboard from "./components/LeaderBoard";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
-import { createBrowserRouter, RouterProvider, Route, Routes } from "react-router-dom";
-
-const router = createBrowserRouter([
-    {
-        path:"/",
-        element:<Home/>
-    },
-    {
-        path:"/events",
-        element:<EventPage/>
-    },
-    {
-        path:"/shop",
-        element:<Marketplace/>
-    }
-])
+import { Route, Routes } from "react-router-dom";
 
 // The main content takes the remaining space between the sidebars
 const MainContent = styled.div.attrs({
@@ -46,6 +32,8 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/events" element={<EventPage/>}/>
                     <Route path="/shop" element={<Marketplace/>}/>
+                    <Route path="/shop" element={<Marketplace/>}/>
+                    {/* <Route path="/leaderboard" element={<Leaderboard/>}/> */}
                 </Routes>
                 {/* <RouterProvider router={router}/> */}
             </MainContent>
