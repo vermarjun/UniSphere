@@ -56,11 +56,11 @@ const ItemCard = ({data}) => {
         {/* <img src={data.images} alt="Product" className="w-full h-36 object-contain bg-neutral-900"/> */}
       </div>
       <div className="px-2">
-        <div className="py-2 flex justify-between items-center border-b">
+        <div className="py-2 flex justify-between items-center border-b border-neutral-600">
             <span className="text-lg font-semibold">₹{data.cost}</span>
             <span className="text-neutral-500 text-xs">{data.date}</span>
         </div>
-        <div className="py-2 h-10">
+        <div className="py-2 my-2 h-10">
             <p className="text-neutral-200 text-xs line-clamp-2">
                 {data.description}
             </p>
@@ -98,8 +98,8 @@ function Marketplace(){
     return (
         <>
         {/* <Modal/> */}
-        <div className="text-white w-full h-full flex justify-start items-center overflow-y-auto ">
-            <div className="p-2 sm:ml-5 sm:w-5/6 h-full">
+        <div className="text-white w-full h-full overflow-y-auto px-10">
+            <div className="h-full">
                 <div className="h-20 flex justify-center items-center border-b-2 mb-5">
                     <p className="text-5xl font-bold text-center">Market Place</p>
                 </div>

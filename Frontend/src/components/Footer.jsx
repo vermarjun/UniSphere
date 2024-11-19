@@ -3,7 +3,7 @@ import { IconContext } from "react-icons/lib";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
-import { HiDotsVertical } from "react-icons/hi";
+import { CiCirclePlus } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 function Footer(){
     const navigate = useNavigate();
@@ -17,6 +17,11 @@ function Footer(){
             <div onClick={()=>navigate("/events")}>
                 <IconContext.Provider value={{color:'white', size:'30px'}}>
                     <MdEvent />
+                </IconContext.Provider>
+            </div>
+            <div onClick={()=>navigate("/events")}>
+                <IconContext.Provider value={{color:'white', size:'30px'}}>
+                    <CiCirclePlus />
                 </IconContext.Provider>
             </div>
             <div onClick={()=>navigate("/shop")}>

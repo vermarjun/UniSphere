@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // Styled Components for Sidebar
 const Rfsb = styled.div.attrs({
-  className: "w-full md:w-1/3 h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
+  className: "w-full md:w-[28rem] h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
 })``;
 
 const SectionBox = styled.div.attrs({

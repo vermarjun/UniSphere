@@ -9,7 +9,7 @@ import comment from "/comment.png"
 const slides1 = ["https://th.bing.com/th/id/OIP.MCLzVoExgXPyNi_V5gb1AwHaE7?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.9r1JDiokxqQLHrj2a9XojAHaNK?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.RDStdOWibsHTs0f08IQdUAHaEo?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.7cRYFyLoDEDh4sRtM73vvwHaDg?rs=1&pid=ImgDetMain"]
 const slides2 = ["https://pinchofglam.com/wp-content/uploads/2024/05/cinnamon-brown-haircolor-26-600x900.jpg","https://th.bing.com/th/id/OIP.n8eeUqmmEIKtzRxgzwaSLAHaK0?w=832&h=1216&rs=1&pid=ImgDetMain"]
 
-export function Carousel({slides}){
+function Carousel({slides}){
     const [currentIndex, setCurrentIndex] = useState(0);
     function prevSlide() {
         setCurrentIndex((prevIndex) => (prevIndex == 0) ? slides.length - 1 : prevIndex - 1);
@@ -21,7 +21,7 @@ export function Carousel({slides}){
     return (
         <div className="relative max-h-80">
             {/* Slides */}
-            <div className="overflow-hidden relative border-b border-neutral-800">
+            <div className="overflow-hidden relative border-b border-neutral-800 ">
                 <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {slides.map((slide, index) => (
                     <img key={index} src={slide} alt="image" className="min-w-full object-contain h-full max-w-96 max-h-80" />
@@ -104,8 +104,8 @@ function Post({slides}){
 function Home(){
     return (
         <>
-        <div className="text-white h-full w-full">
-            <div className="w-full my-5 space-y-5">
+        <div className="text-white h-full w-full sm:flex sm:justify-center">
+            <div className="my-5 space-y-5">
                 <Post slides={slides2}/>
                 <Post slides={slides1}/>
             </div>

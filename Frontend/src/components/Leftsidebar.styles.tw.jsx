@@ -12,7 +12,7 @@ import SignupPage from "./SignupPage"; // Import SignupPage
 import LoginPage from "./LoginPage"; // Import LoginPage
 
 const Lfsb = styled.div.attrs({
-  className: "border-r-2 border-neutral-700 w-80 h-full bg-black fixed sm:block hidden", // Sidebar is fixed on left
+  className: "border-r-2 border-neutral-700 w-[20rem] h-full bg-black fixed sm:block hidden", // Sidebar is fixed on left
 })``;
 
 export default function Leftsidebar() {
@@ -23,12 +23,12 @@ export default function Leftsidebar() {
         <Lfsb>
         <div className="text-white h-full w-full flex justify-center items-center">
             <div className="h-full w-5/6">
-            <div className="h-1/6 flex items-center">
-                {/* Logo */}
-                <img src={logo} alt="" className="h-16 rounded-full" />
-                <div className="ml-2">
-                <p className="font-bold text-2xl">GGV SOCIAL</p>
-                <p className="font-extralight text-xs">What we do - tagline</p>
+                <div className="h-1/6 flex items-center">
+                    {/* Logo */}
+                    <img src={logo} alt="" className="h-16 rounded-full" />
+                    <div className="ml-2">
+                    <p className="font-bold text-2xl">GGV SOCIAL</p>
+                    <p className="font-extralight text-xs">What we do - tagline</p>
                 </div>
             </div>
 
