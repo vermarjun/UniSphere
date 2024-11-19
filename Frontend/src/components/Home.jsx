@@ -5,7 +5,6 @@ import view from "/view.png"
 import like from "/like.png"
 import share from "/share.png"
 import comment from "/comment.png"
-import video from "/video.mp4"
 
 const slides1 = ["https://th.bing.com/th/id/OIP.MCLzVoExgXPyNi_V5gb1AwHaE7?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.9r1JDiokxqQLHrj2a9XojAHaNK?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.RDStdOWibsHTs0f08IQdUAHaEo?rs=1&pid=ImgDetMain","https://th.bing.com/th/id/OIP.7cRYFyLoDEDh4sRtM73vvwHaDg?rs=1&pid=ImgDetMain"]
 const slides2 = ["https://pinchofglam.com/wp-content/uploads/2024/05/cinnamon-brown-haircolor-26-600x900.jpg","https://th.bing.com/th/id/OIP.n8eeUqmmEIKtzRxgzwaSLAHaK0?w=832&h=1216&rs=1&pid=ImgDetMain"]
