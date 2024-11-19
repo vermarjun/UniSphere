@@ -145,9 +145,9 @@ export default function Rightsidebar() {
                 <PostTime>{topic.postedAt}</PostTime>
               </GridWrapper>
               <Content>
-                <p className="text-gray-500 text-sm">{topic.category}</p>
-                <p className="text-blue-500 font-bold">{topic.title}</p>
-                <p className="text-gray-500 text-sm">{topic.subtext}</p>
+                {/* <p className="text-gray-500 text-sm">{topic.category}</p> */}
+                {/* <p className="text-blue-500 font-bold">{topic.title}</p>
+                <p className="text-gray-500 text-sm">{topic.subtext}</p> */}
                 <p className="text-gray-400 mt-2">{topic.caption}</p>
               </Content>
             </SectionItem>
