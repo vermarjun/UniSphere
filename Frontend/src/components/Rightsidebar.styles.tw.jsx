@@ -2,76 +2,76 @@ import styled from "styled-components";
 
 // Styled Components for Sidebar
 const Rfsb = styled.div.attrs({
-  className: "w-full md:w-1/3 h-full bg-gray-900 text-white overflow-y-auto fixed right-0 border-l-2 border-gray-500 p-4",
+  className: "w-full md:w-1/3 h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
 })``;
 
 const SectionBox = styled.div.attrs({
-  className: "border-2 border-gray-700 rounded-2xl p-4 md:p-6 space-y-4 w-full overflow-hidden bg-gray-800", // Dark background for section
+  className: "border-2 border-gray-700 rounded-2xl p-3 md:p-4 space-y-3 w-full overflow-hidden bg-black",
 })``;
 
 const SectionItem = styled.div.attrs({
-  className: "hover:bg-gray-700 p-4 rounded-lg cursor-pointer transition-all grid gap-4 md:gap-6", // Lighter hover effect
+  className: "hover:bg-gray-800 p-3 rounded-lg cursor-pointer transition-all grid gap-3 md:gap-4", // Subtle gray hover
 })``;
 
 const GridWrapper = styled.div.attrs({
-  className: "grid grid-cols-1 md:grid-cols-12 gap-4", // Grid for desktop
+  className: "grid grid-cols-1 md:grid-cols-12 gap-3", // Reduced grid gap
 })``;
 
 const UserInfo = styled.div.attrs({
-  className: "flex items-center space-x-4 md:col-span-3", // 1st column: Image
+  className: "flex items-center space-x-3 md:col-span-3", // Reduced spacing
 })``;
 
 const ProfileImage = styled.div.attrs({
-  className: "w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-500 flex items-center justify-center overflow-hidden", // Profile image responsive
+  className: "w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden", // Slight gray for profile image background
 })``;
 
 const UserName = styled.div.attrs({
-  className: "md:col-span-6 flex items-center font-semibold text-white", // 2nd column: UserName
+  className: "md:col-span-6 flex items-center font-semibold text-white", // White text
 })``;
 
 const PostTime = styled.div.attrs({
-  className: "text-sm text-gray-400 md:col-span-3 flex items-center justify-end", // 3rd column: Post time
+  className: "text-sm text-gray-500 md:col-span-3 flex items-center justify-end", // Light gray for post time
 })``;
 
 const Content = styled.div.attrs({
-  className: "space-y-2", // Content spacing
+  className: "space-y-1", // Reduced content spacing
 })``;
 
 const ShowMore = styled.div.attrs({
-  className: "text-blue-500 text-sm font-semibold hover:underline cursor-pointer mt-4", // Lighter blue for show more
+  className: "text-blue-500 text-sm font-semibold hover:underline cursor-pointer mt-2", // Highlighted text
 })``;
 
 // Styled Components for Leaderboard
 const LeaderboardWrapper = styled.div.attrs({
-  className: "border-t-2 border-gray-700 mt-8 pt-4 bg-gray-800", // Dark background for leaderboard
+  className: "border-t-2 border-gray-800 mt-6 pt-3 bg-black", // Black background
 })``;
 
 const TopThreeWrapper = styled.div.attrs({
-  className: "flex justify-between space-x-4 mb-8",
+  className: "flex justify-between space-x-2 mb-6", // Reduced space between cards
 })``;
 
 const TopCard = styled.div.attrs({
-  className: "flex-1 flex flex-col items-center bg-gray-700 p-4 rounded-lg", // Darker background for top card
+  className: "flex-1 flex flex-col items-center bg-gray-800 p-3 rounded-lg", // Subtle gray background for cards
 })``;
 
 const ParticipantImage = styled.div.attrs({
-  className: "w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-500 overflow-hidden",
+  className: "w-14 h-14 md:w-16 md:h-16 rounded-full bg-gray-700 overflow-hidden", // Slight gray for profile image background
 })``;
 
 const RankBox = styled.div.attrs({
-  className: "bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold text-xl w-8 h-8 flex items-center justify-center rounded-full -mt-6", // Bright gradient for rank box
+  className: "bg-yellow-400 text-black font-bold text-lg w-6 h-6 flex items-center justify-center rounded-full -mt-5", // Bright yellow for rank
 })``;
 
 const LeaderboardList = styled.div.attrs({
-  className: "space-y-4",
+  className: "space-y-2", // Reduced spacing between rows
 })``;
 
 const LeaderboardRow = styled.div.attrs({
-  className: "flex items-center justify-between bg-gray-700 p-4 rounded-lg",
+  className: "flex items-center justify-between bg-gray-800 p-3 rounded-lg", // Subtle gray background for rows
 })``;
 
 const ParticipantDetails = styled.div.attrs({
-  className: "flex-1 ml-4",
+  className: "flex-1 ml-3",
 })``;
 
 const ParticipantRank = styled.div.attrs({
@@ -116,13 +116,13 @@ const leaderboardData = [
 export default function Rightsidebar() {
   return (
     <Rfsb>
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Search Box */}
         <div>
           <input
             type="text"
             placeholder="Search"
-            className="bg-gray-800 text-white placeholder-gray-400 rounded-full p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className=" text-lg bg-[#2b2d2f] placeholder-gray-500 rounded-full p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -145,10 +145,10 @@ export default function Rightsidebar() {
                 <PostTime>{topic.postedAt}</PostTime>
               </GridWrapper>
               <Content>
-                <p className="text-gray-400 text-sm">{topic.category}</p>
-                <p className="text-blue-500 font-bold">{topic.title}</p> {/* Bright blue */}
-                <p className="text-gray-500 text-sm">{topic.subtext}</p>
-                <p className="text-gray-300 mt-2">{topic.caption}</p>
+                {/* <p className="text-gray-500 text-sm">{topic.category}</p> */}
+                {/* <p className="text-blue-500 font-bold">{topic.title}</p>
+                <p className="text-gray-500 text-sm">{topic.subtext}</p> */}
+                <p className="text-gray-400 mt-2">{topic.caption}</p>
               </Content>
             </SectionItem>
           ))}
@@ -170,7 +170,7 @@ export default function Rightsidebar() {
                 </ParticipantImage>
                 <RankBox>{participant.rank}</RankBox>
                 <div className="text-blue-300 font-bold mt-2">{participant.name}</div>
-                <div className="text-sm text-gray-400">{participant.points} Pts</div>
+                <div className="text-sm text-gray-500">{participant.points} Pts</div>
               </TopCard>
             ))}
           </TopThreeWrapper>
@@ -186,7 +186,7 @@ export default function Rightsidebar() {
                 </ParticipantImage>
                 <ParticipantDetails>
                   <div className="text-blue-300 font-bold">{participant.name}</div>
-                  <div className="text-gray-400 text-sm">{participant.caption}</div>
+                  <div className="text-gray-500 text-sm">{participant.caption}</div>
                 </ParticipantDetails>
                 <ParticipantRank>#{participant.rank}</ParticipantRank>
               </LeaderboardRow>
