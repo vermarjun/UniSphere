@@ -2,6 +2,7 @@ import Leftsidebar from "./Leftsidebar.styles.tw";
 import Rightsidebar from "./Rightsidebar.styles.tw";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import Home from "./Home";
 import EventPage from "./Event/EventPage";
 
 
