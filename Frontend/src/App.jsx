@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
+export const API_URL = "/api"; 
+
 // The main content takes the remaining space between the sidebars
 const MainContent = styled.div.attrs({
     className:"sm:h-full h-full overflow-y-auto w-full sm:ml-[20rem] sm:mr-[28rem]", // Makes the content take the rest of the width and ensures scroll
