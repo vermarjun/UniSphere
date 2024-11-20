@@ -3,7 +3,7 @@ import EventPage from "./components/Event/EventPage";
 import Marketplace from "./components/Marketplace";
 import Leftsidebar from "./components/Leftsidebar.styles.tw";
 import Rightsidebar from "./components/Rightsidebar.styles.tw";
-import Profile from "./components/Profile"; // Import Profile page
+import Profile from "./components/Profile"; 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
