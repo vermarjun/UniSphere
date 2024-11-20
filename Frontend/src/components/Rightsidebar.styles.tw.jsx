@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useState, useRef, useEffect } from "react";
+import { API_URL } from "../App";
 
 // Styled Components for Sidebar
 const Rfsb = styled.div.attrs({
-  className: "w-full md:w-1/3 h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
+  className: "w-full md:w-[28rem] h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
 })``;
 
 const SectionBox = styled.div.attrs({
@@ -81,18 +84,12 @@ const ParticipantRank = styled.div.attrs({
 // Data for Trending Topics
 const trendingTopics = [
   {
-    category: "Entertainment · Trending",
-    title: "#CharacterlessLadyNAYANTHARA",
-    subtext: "Trending with #DhanushVsNayanthara",
     postedBy: "Bharat",
     postedAt: "2 hours ago",
     caption: "Characterless Lady NAYANTHARA trending all over social media today!",
     image: "https://i.pinimg.com/736x/0e/50/fa/0e50fa227d634b7c0825f8b68d56f85c.jpg",
   },
   {
-    category: "Entertainment · Trending",
-    title: "#Pushpa2TheRuleTrailer",
-    subtext: "Trending with #AlluArjunInPatna",
     postedBy: "Arjun",
     postedAt: "1 day ago",
     caption: "Pushpa 2 trailer released, the excitement is real!",
@@ -114,6 +111,13 @@ const leaderboardData = [
 ];
 
 export default function Rightsidebar() {
+  // async function fetchData(){
+  //   const response = await axios.get(`{${API_URL}/v1/trending}`)
+  // }
+  // useEffect(()=>{
+  //   fetchData
+  // }, []);
+
   return (
     <Rfsb>
       <div className="space-y-6">
@@ -145,9 +149,6 @@ export default function Rightsidebar() {
                 <PostTime>{topic.postedAt}</PostTime>
               </GridWrapper>
               <Content>
-                {/* <p className="text-gray-500 text-sm">{topic.category}</p> */}
-                {/* <p className="text-blue-500 font-bold">{topic.title}</p>
-                <p className="text-gray-500 text-sm">{topic.subtext}</p> */}
                 <p className="text-gray-400 mt-2">{topic.caption}</p>
               </Content>
             </SectionItem>

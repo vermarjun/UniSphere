@@ -3,8 +3,9 @@ import { IconContext } from "react-icons/lib";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdEvent } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
-import { HiDotsVertical } from "react-icons/hi";
+import { CiCirclePlus } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 function Footer(){
     const navigate = useNavigate();
     return (
@@ -19,6 +20,11 @@ function Footer(){
                     <MdEvent />
                 </IconContext.Provider>
             </div>
+            <div onClick={()=>navigate("/events")}>
+                <IconContext.Provider value={{color:'white', size:'30px'}}>
+                    <CiCirclePlus />
+                </IconContext.Provider>
+            </div>
             <div onClick={()=>navigate("/shop")}>
                 <IconContext.Provider value={{color:'white', size:'30px'}}>
                     <FaShoppingCart/>
@@ -27,6 +33,11 @@ function Footer(){
             <div>
                 <IconContext.Provider value={{color:'white', size:'30px'}}>
                     <BiBell/>
+                </IconContext.Provider>
+            </div>
+            <div onClick={()=>navigate("/profile")}>
+                <IconContext.Provider value={{color:'white', size:'30px'}}>
+                    <CgProfile />
                 </IconContext.Provider>
             </div>
         </div>

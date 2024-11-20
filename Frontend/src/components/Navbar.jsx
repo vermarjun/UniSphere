@@ -1,17 +1,16 @@
 import leaderBoard from "/leaderboard.png"
 import fire from "/fire.png"
-import { useNavigate } from "react-router-dom"
+import logo from "/logo.png"
 function Navbar(){
-    const navigate = useNavigate();
     return (
         <div className="w-full h-full flex justify-around items-center">
             <div>
                 <input type="text" placeholder="Search" className="px-3 p-2 w-5/6 rounded-full bg-neutral-900" />
             </div>
-            <div onClick={()=>navigate("/trending")}>
+            <div>
                 <img src={fire} alt="" className="h-9"/>
             </div>
-            <div onClick={()=>navigate("/leaderboard")}>
+            <div>
                 <img src={leaderBoard} alt="" className="h-9"/>
             </div>
         </div>

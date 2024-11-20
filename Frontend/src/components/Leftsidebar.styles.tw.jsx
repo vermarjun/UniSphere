@@ -12,64 +12,53 @@ import SignupPage from "./SignupPage"; // Import SignupPage
 import LoginPage from "./LoginPage"; // Import LoginPage
 
 const Lfsb = styled.div.attrs({
-  className:
-    "border-r-2 border-neutral-700 w-80 h-full bg-black fixed sm:block hidden", // Sidebar is fixed on left
+  className: "border-r-2 border-neutral-700 w-[20rem] h-full bg-black fixed sm:block hidden", // Sidebar is fixed on left
 })``;
 
 export default function Leftsidebar() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State for Signup modal
-  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false); // State for Login modal
-  const navigate = useNavigate();
+    const [isDialogOpen, setIsDialogOpen] = useState(false);  // State for controlling Signup modal
+    const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);  // State for controlling Login modal
+    const navigate = useNavigate();
+    return (
+        <Lfsb>
+        <div className="text-white h-full w-full flex justify-center items-center">
+            <div className="h-full w-5/6">
+                <div className="h-1/6 flex items-center">
+                    {/* Logo */}
+                    <img src={logo} alt="" className="h-16 rounded-full" />
+                    <div className="ml-2">
+                    <p className="font-bold text-2xl">GGV SOCIAL</p>
+                    <p className="font-extralight text-xs">What we do - tagline</p>
+                </div>
+            </div>
 
-  return (
-    <Lfsb>
-      <div className="text-white h-full w-full flex justify-center items-center">
-        <div className="h-full w-5/6">
-          {/* Logo Section */}
-          <div className="h-1/6 flex items-center">
-            <img src={logo} alt="Logo" className="h-16 rounded-full" />
-            <div className="ml-2">
-              <p className="font-bold text-2xl">GGV SOCIAL</p>
-              <p className="font-extralight text-xs">What we do - tagline</p>
+            {/* Main Sidebar Content */}
+            <div className="h-2/6 w-full space-y-3">
+                <div onClick={()=>navigate("/")} className="flex gap-2 w-full justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2">
+                    <IconContext.Provider value={{ color: 'white', size: '25px' }}>
+                        <IoHomeOutline />
+                    </IconContext.Provider>
+                    <button className="w-full text-xl text-left">Home</button>
+                </div>
+                <div onClick={()=>navigate("/events")} className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2">
+                    <IconContext.Provider value={{ color: 'white', size: '25px' }}>
+                        <MdEvent />
+                    </IconContext.Provider>
+                    <button className="w-full text-xl text-left">Events</button>
+                </div>
+                <div onClick={()=>navigate("/shop")} className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2">
+                    <IconContext.Provider value={{ color: 'white', size: '25px' }}>
+                        <FaShoppingCart />
+                    </IconContext.Provider>
+                    <button className="w-full text-xl text-left">Shop</button>
+                </div>
+                <div className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2">
+                <IconContext.Provider value={{ color: 'white', size: '25px' }}>
+                    <BiBell />
+                </IconContext.Provider>
+                <button className="w-full text-xl text-left">Notifications</button>
+                </div>
             </div>
-          </div>
-
-          {/* Sidebar Navigation */}
-          <div className="h-2/6 w-full space-y-3">
-            <div
-              onClick={() => navigate("/")}
-              className="flex gap-2 w-full justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2"
-            >
-              <IconContext.Provider value={{ color: "white", size: "25px" }}>
-                <IoHomeOutline />
-              </IconContext.Provider>
-              <button className="w-full text-xl text-left">Home</button>
-            </div>
-            <div
-              onClick={() => navigate("/events")}
-              className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2"
-            >
-              <IconContext.Provider value={{ color: "white", size: "25px" }}>
-                <MdEvent />
-              </IconContext.Provider>
-              <button className="w-full text-xl text-left">Events</button>
-            </div>
-            <div
-              onClick={() => navigate("/shop")}
-              className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2"
-            >
-              <IconContext.Provider value={{ color: "white", size: "25px" }}>
-                <FaShoppingCart />
-              </IconContext.Provider>
-              <button className="w-full text-xl text-left">Shop</button>
-            </div>
-            <div className="flex gap-2 justify-center items-center transition-all hover:bg-[#2b2d2f] rounded-full p-2">
-              <IconContext.Provider value={{ color: "white", size: "25px" }}>
-                <BiBell />
-              </IconContext.Provider>
-              <button className="w-full text-xl text-left">Notifications</button>
-            </div>
-          </div>
 
           {/* Signup and Login Buttons */}
           <div className="h-2/6 w-full space-y-3 mt-2">
