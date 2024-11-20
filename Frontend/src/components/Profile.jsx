@@ -5,18 +5,18 @@ import like from "/like.png";
 import comment from "/comment.png";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 
-// ProfileHeader Component
+
 function ProfileHeader() {
   return (
     <div className="bg-black text-white">
-      {/* Banner */}
+      {/*background banner rahega*/}
       <div className="relative">
         <img
           src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202207/ronaldounitedatleticotransfer_1200x768.png?VersionId=D6fapmJ8W5Qj6z1vpqZusEu1gL.H_79l&size=690:388"
           alt="Banner"
           className="w-full h-40 object-cover"
         />
-        {/* User Picture */}
+        {/*pic of user*/}
         <div className="absolute top-24 left-6">
           <img
             src="https://cdn.pixabay.com/photo/2023/02/23/10/16/ai-generated-7808455_960_720.jpg"
@@ -25,7 +25,7 @@ function ProfileHeader() {
           />
         </div>
       </div>
-      {/* Profile Info */}
+      {/* profile */}
       <div className="pt-14 pl-6">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl font-bold">Username</h1>
@@ -56,13 +56,13 @@ function ProfileHeader() {
           </div>
         </div>
       </div>
-      {/* Tabs */}
+      {/*tab*/}
       <div className="mt-6 border-b border-gray-800">
         <nav className="flex text-gray-400">
           <a href="#" className="px-4 py-2 text-white border-b-2 border-blue-500">
             Posts
           </a>
-          <a href="#" className="px-4 py-2 hover:text-white">Replies</a>
+          
           <a href="#" className="px-4 py-2 hover:text-white">Media</a>
           <a href="#" className="px-4 py-2 hover:text-white">Liked</a>
           <a href="#" className="px-4 py-2 hover:text-white">Comments</a>
@@ -172,7 +172,7 @@ function Post({ slides, textOnly }) {
 }
 
 
-// Main Profile Page
+
 export default function Profile() {
   const slides1 = [
     "https://th.bing.com/th/id/OIP.MCLzVoExgXPyNi_V5gb1AwHaE7?rs=1&pid=ImgDetMain",
