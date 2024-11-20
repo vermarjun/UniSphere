@@ -4,7 +4,7 @@ import nextBtn from "/next.png"
 import like from "/like.png"
 import comment from "/comment.png"
 import axios from "axios";
-import { API_URL } from "../App";
+import { API_URL, timeAgo } from "../App";
 import { GiPartyPopper } from "react-icons/gi";
 import { IconContext } from "react-icons/lib";
 
@@ -66,7 +66,7 @@ function Post({slides, authorName, authorUsername, createdAt, caption}){
                         <h3 className="font-semibold">{authorName}</h3>
                         <p className="text-sm text-gray-400">{authorUsername}</p>
                     </div>
-                    <p className="text-xs">{createdAt}</p>
+                    <p className="text-xs">{timeAgo(createdAt)}</p>
                 </div>
             </div>
         
@@ -242,8 +242,8 @@ function Home(){
                         }
                 </div>
                 {/* If there are no new posts */}
-                <div className={`${!hasMore?"visible":"hidden"}`}>
-                    <div className="max-w-lg sm:mx-10 mx-2  rounded-lg shadow-md sm:w-[32rem] mb-5 p-4 flex justify-center items-center">
+                <div className={`${hasMore?"hidden":"visible"}`}>
+                    <div className="sm:mx-10 rounded-lg shadow-md sm:w-[32rem] mb-5 p-4 flex justify-center items-center">
                         <div className="flex justify-center items-center w-full bg-gradient-to-r rounded-lg p-3 from-teal-400 to-blue-500">
                             <h1 className="text-center  text-black  text-lg">You're All caught up! Comeback Later!</h1>   
                         </div>

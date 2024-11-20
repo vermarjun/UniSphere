@@ -2,10 +2,12 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import { API_URL } from "../App";
+import profile from "/profile.png"
+import { timeAgo } from "../App";
 
 // Styled Components for Sidebar
 const Rfsb = styled.div.attrs({
-  className: "w-full md:w-[28rem] h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4", 
+  className: "w-full md:w-[28rem] h-full bg-black text-white overflow-y-auto fixed right-0 border-l-2 border-gray-800 p-4 sm:block hidden", 
 })``;
 
 const SectionBox = styled.div.attrs({
@@ -82,20 +84,20 @@ const ParticipantRank = styled.div.attrs({
 })``;
 
 // Data for Trending Topics
-const trendingTopics = [
-  {
-    postedBy: "Bharat",
-    postedAt: "2 hours ago",
-    caption: "Characterless Lady NAYANTHARA trending all over social media today!",
-    image: "https://i.pinimg.com/736x/0e/50/fa/0e50fa227d634b7c0825f8b68d56f85c.jpg",
-  },
-  {
-    postedBy: "Arjun",
-    postedAt: "1 day ago",
-    caption: "Pushpa 2 trailer released, the excitement is real!",
-    image: "https://stat4.bollywoodhungama.in/wp-content/uploads/2023/04/Pushpa-2-%E2%80%93-The-Rule.jpg",
-  },
-];
+// const trendingTopics = [
+//   {
+//     postedBy: "Bharat",
+//     postedAt: "2 hours ago",
+//     caption: "Characterless Lady NAYANTHARA trending all over social media today!",
+//     image: "https://i.pinimg.com/736x/0e/50/fa/0e50fa227d634b7c0825f8b68d56f85c.jpg",
+//   },
+//   {
+//     postedBy: "Arjun",
+//     postedAt: "1 day ago",
+//     caption: "Pushpa 2 trailer released, the excitement is real!",
+//     image: "https://stat4.bollywoodhungama.in/wp-content/uploads/2023/04/Pushpa-2-%E2%80%93-The-Rule.jpg",
+//   },
+// ];
 
 // Data for Leaderboard
 const topThree = [
@@ -111,13 +113,27 @@ const leaderboardData = [
 ];
 
 export default function Rightsidebar() {
-  // async function fetchData(){
-  //   const response = await axios.get(`{${API_URL}/v1/trending}`)
-  // }
-  // useEffect(()=>{
-  //   fetchData
-  // }, []);
-
+  const [loading, setLoading] = useState(false);
+  const [trendingPosts, setTrendingPosts] = useState([]);
+  const [error, setError] = useState(null);
+  async function fetchData(){
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get(`${API_URL}/v1/trending`);
+      const data = response.data;
+      if (data.success == true){
+        setTrendingPosts(data.message);
+      }
+      setLoading(false);
+    } catch(error){
+      console.log(error);
+      setError(error);
+    }
+  }
+  useEffect(()=>{
+    fetchData();
+  }, []);
   return (
     <Rfsb>
       <div className="space-y-6">
@@ -133,23 +149,23 @@ export default function Rightsidebar() {
         {/* Trending Topics Section */}
         <SectionBox>
           <p className="text-white text-2xl font-bold">What's happening</p>
-          {trendingTopics.map((topic, index) => (
+          {trendingPosts.map((post, index) => (
             <SectionItem key={index}>
               <GridWrapper>
                 <UserInfo>
                   <ProfileImage>
                     <img
-                      src={topic.image}
+                      src={profile}
                       alt="User"
-                      className="w-full h-full object-cover rounded-full"
+                      className="bg-black w-full h-full object-cover rounded-full"
                     />
                   </ProfileImage>
                 </UserInfo>
-                <UserName>{topic.postedBy}</UserName>
-                <PostTime>{topic.postedAt}</PostTime>
+                <UserName>{post.userId}</UserName>
+                <PostTime>{timeAgo(post.createdAt)}</PostTime>
               </GridWrapper>
               <Content>
-                <p className="text-gray-400 mt-2">{topic.caption}</p>
+                <p className="text-gray-400 mt-2 line-clamp-2">{post.caption}</p>
               </Content>
             </SectionItem>
           ))}

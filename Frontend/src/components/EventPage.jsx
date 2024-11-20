@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import {API_URL} from "../App"
+import { timeAgo } from "../App";
 
 function EventCard({
   title,
@@ -12,7 +15,7 @@ function EventCard({
   onRegister,
 }) {
   return (
-    <div className="max-w-lg w-full sm:mx-auto mx-2 border border-neutral-700 rounded-lg shadow-md bg-neutral-800">
+    <div className="max-w-lg w-full sm:mx-auto border border-neutral-700 rounded-lg shadow-md bg-neutral-800">
       {/* Event Header */}
       <div className="flex justify-between items-center p-4 bg-neutral-900 rounded-t-lg">
         <div>
@@ -62,6 +65,43 @@ function EventCard({
             Register
           </button>
         )}
+      </div>
+    </div>
+  );
+}
+function EventCardLoader() {
+  return (
+    <div className="max-w-lg w-full sm:mx-auto mx-2 border border-neutral-700 rounded-lg shadow-md bg-neutral-800 animate-pulse">
+      {/* Event Header */}
+      <div className="flex justify-between items-center p-4 bg-neutral-900 rounded-t-lg">
+        <div className="w-full space-y-3">
+          <div className="text-lg font-bold bg-neutal-900 h-8 rounded-full w-1/5 bg-neutral-800"></div>
+          <div className="text-lg font-bold bg-neutal-900 h-5 rounded-lg w-3/5 bg-neutral-800"></div>
+        </div>
+        <p className="text-xs text-gray-300"></p>
+      </div>
+
+      {/* Event Content */}
+      <div className="p-4">
+        <div className="w-full h-[20rem] bg-neutral-900 rounded-lg mb-4 object-cover"></div>
+        <div className="text-sm bg-neutral-900 mb-3 h-8 w-2/6 rounded-full"></div>
+        <div className="text-xs bg-neutral-900 rounded-full h-5 w-1/6 mb-2"></div>
+        <div className="text-xs text-gray-400 mt-2">
+
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="flex flex-col sm:flex-row items-center justify-between px-4 pb-4">
+        {/* Comment Input */}
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          className="w-full sm:w-2/3 p-2 text-sm bg-neutral-700 text-white rounded border border-neutral-600 mb-2 sm:mb-0 sm:mr-2 h-10"
+        />
+
+        {/* Register or Expired Button */}
+        <div className="w-full sm:w-1/3 bg-blue-500 text-white py-2 px-2 rounded-lg cursor-not-allowed h-10"></div>
       </div>
     </div>
   );
@@ -199,29 +239,73 @@ function AddEventModal({ isOpen, onClose, onAddEvent }) {
 }
 
 function EventPage() {
-  const [events, setEvents] = useState([
-    {
-      title: "Music Fest 2024",
-      date: "2024-11-15",
-      location: "Los Angeles, CA",
-      description: "Enjoy live music, food, and fun!",
-      image:
-        "https://cdn.pixabay.com/photo/2023/02/23/10/16/ai-generated-7808455_960_720.jpg",
-      user: "John Doe",
-      deadline: "2024-11-10",
-      isExpired: false,
-    },
-    {
-      title: "Expired Event",
-      date: "2024-10-15",
-      location: "New York, NY",
-      description: "This is an expired event example.",
-      image: "",
-      user: "Jane Doe",
-      deadline: "2024-10-01",
-      isExpired: true,
-    },
-  ]);
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [fetchingMore, setFetchingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const divRef = useRef(null);
+  async function fetchData() {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(`${API_URL}/v1/event`, {
+        params: {
+          limit: 10,
+          page: page,
+        },
+      });
+      const data = response.data;
+      if (data.message.length == 0) {
+        setHasMore(false);
+      }
+      if (data.success == true && data.message.length) {
+        setEvents([...events, ...data.message]);
+        setPage((page) => page + 1);
+      }
+    } catch (error) {
+      setError(error);
+      console.log("Error fetching data in EventPagejsx:\n" + error);
+    }
+    setLoading(false);
+  }
+  async function fetchMoreData() {
+    setFetchingMore(true);
+    setError(null);
+    try {
+      const response = await axios.get(`${API_URL}/v1/event`, {
+        params: {
+          limit: 10,
+          page: page,
+        },
+      });
+      const data = response.data;
+      if (data.message.length == 0) {
+        setHasMore(false);
+      }
+      if (data.success == true && data.message.length>=1) {
+        setEvents([...events, ...data.message]);
+        setPage((page) => page + 1);
+      }
+    } catch (error) {
+      setError(error);
+      console.log("Error fetching data in eventpagejsx:\n" + error);
+    }
+    setFetchingMore(false);
+  }
+  function handleScroll(){
+    const {scrollTop, scrollHeight, clientHeight} = divRef.current;
+    console.log(scrollTop, scrollHeight, clientHeight)
+    if (!hasMore || loading) return; //Aur nahi hain post, dont fetch more, user has reached END
+    if (scrollTop+clientHeight >= scrollHeight-200){
+      fetchMoreData();
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleAddEvent = (newEvent) => {
@@ -233,7 +317,7 @@ function EventPage() {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white overflow-y-scroll h-full"  ref={divRef} onScroll={handleScroll}>
       {/* Story-Like Section */}
       <div className="flex overflow-x-scroll space-x-4 p-4 bg-neutral-900">
         <button
@@ -270,14 +354,40 @@ function EventPage() {
       />
 
       {/* Event List */}
-      <div className="w-full my-5 space-y-5">
-        {events.map((event, index) => (
-          <EventCard
-            key={index}
-            {...event}
-            onRegister={() => handleRegister(event.title)}
-          />
-        ))}
+      <div className={`w-full my-5 p-2`}>
+        <div className={`${!loading?"visible":"hidden"} space-y-5`}>
+          {events.map((event, index) => (
+            <EventCard
+              key={index}
+              title={event.title}
+              date={timeAgo(event.createdAt)}
+              location={event.department}
+              description={event.caption}
+              image={event.media}
+              user={event.userId}
+              isExpired={event.expired}
+              deadline={event.deadLine}
+              onRegister={() => handleRegister(event.title)}
+            />
+          ))}
+        </div>
+        <div className={`${loading?"visible":"hidden"} space-y-5`}>
+          {["",""].map((data, index)=>(
+            <EventCardLoader key={index}/>
+          ))}
+        </div>
+        <div className={`${fetchingMore?"visible":"hidden"} my-5`}>
+          {[""].map((data, index)=>(
+            <EventCardLoader key={index}/>
+          ))}
+        </div>
+        <div className={`${!hasMore?"visible":"hidden"}`}>
+            <div className="w-full rounded-lg shadow-md p-4 flex justify-center items-center">
+                <div className="flex justify-center items-center sm:w-[28rem] bg-gradient-to-r rounded-lg p-3 from-teal-400 to-blue-500">
+                    <h1 className="text-center  text-black  text-lg">You're All caught up! Comeback Later!</h1>   
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   );
