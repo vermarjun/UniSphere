@@ -50,7 +50,7 @@ function Carousel({slides}){
 
 const ItemCard = ({data}) => {
   return (
-    <div className="max-w-sm border border-neutral-700 rounded-lg overflow-hidden hover:cursor-pointer">
+    <div className="max-w-sm border border-neutral-700 rounded-lg overflow-hidden hover:cursor-pointer min-w-full">
       <div className="bg-neutral-950">
         <Carousel slides={data.images}/>
         {/* <img src={data.images} alt="Product" className="w-full h-36 object-contain bg-neutral-900"/> */}
@@ -98,7 +98,7 @@ function Marketplace(){
     return (
         <>
         {/* <Modal/> */}
-        <div className="text-white w-full h-full overflow-y-auto px-10">
+        <div className="text-white w-full h-full overflow-y-auto sm:px-10 px-4">
             <div className="h-full">
                 <div className="h-20 flex justify-center items-center border-b-2 mb-5">
                     <p className="text-5xl font-bold text-center">Market Place</p>

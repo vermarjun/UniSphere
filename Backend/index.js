@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./utill/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
+import postRoutes from "./Router/postRoute.js";
 import dotenv from "dotenv";
 
 dotenv.config({});
@@ -23,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Route
-app.get("/home", (req, res) => {
+app.get("/api/home", (req, res) => {
     return res.status(200).json({
         message: "I am coming from backend",
         success: true
@@ -31,6 +32,12 @@ app.get("/home", (req, res) => {
 });
 
 app.use('/api/v1/users', userRoutes);  // Prefix for user-related routes
+
+app.use('/api/v1/post', postRoutes);  // Prefix for user-related routes
+
+// app.get('/api/v1/trending', (req, res)=>{
+
+// })
 
 // Start the server
 const PORT = 8000 || process.env.PORT;
