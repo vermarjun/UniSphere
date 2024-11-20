@@ -34,12 +34,13 @@ function ProfileHeader() {
           </span>
         </div>
         <p className="text-gray-400 text-sm">@username_chapri</p>
+        <span className="bg-gray-800 text-sm px-1 py-1 rounded-2xl mt-2 inline-block">
+              Kabutar Science Department-GGV
+            </span>
         <p className="text-balance text-lg text-white mt-2">
           Kamar pandey ko ggv se bhagao
         </p>
-        <span className="bg-gray-600 text-sm px-1 py-1 rounded-2xl mt-2 inline-block">
-              Kabutar Science Department
-            </span>
+        
         <div className="flex items-center mt-2 text-gray-400 text-sm">
           <IoCalendarNumberOutline className="mr-1" />
           <p>Joined August 2020</p>
@@ -63,102 +64,113 @@ function ProfileHeader() {
           </a>
           <a href="#" className="px-4 py-2 hover:text-white">Replies</a>
           <a href="#" className="px-4 py-2 hover:text-white">Media</a>
+          <a href="#" className="px-4 py-2 hover:text-white">Liked</a>
+          <a href="#" className="px-4 py-2 hover:text-white">Comments</a>
+          <a href="#" className="px-4 py-2 hover:text-white">My Products</a>
         </nav>
       </div>
     </div>
   );
 }
 
-// Carousel Component
-function Carousel({ slides }) {
+function Carousel({slides}){
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
+  function prevSlide() {
+      setCurrentIndex((prevIndex) => (prevIndex == 0) ? slides.length - 1 : prevIndex - 1);
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
+  function nextSlide() {
+      setCurrentIndex((prevIndex) => (prevIndex == slides.length-1) ? 0 : prevIndex + 1);
   };
-
   return (
-    <div className="relative max-h-80">
-      <div className="overflow-hidden border-b border-neutral-800">
-        <div
-          className="flex transition-transform duration-500"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <img
-              key={index}
-              src={slide}
-              alt={`Slide ${index}`}
-              className="min-w-full object-cover h-full"
-            />
-          ))}
-        </div>
+      <div className={`relative max-h-80 ${slides.length==0?"hidden":"visible"}`}>
+          {/* Slides */}
+          <div className="overflow-hidden relative border-b border-neutral-800">
+              <div className="flex items-center transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+              {slides.map((slide, index) => (
+                  <img key={index} src={slide} alt="image" className="min-w-full object-contain h-full max-w-96 max-h-80" />
+              ))}
+              </div>
+          </div>
+          <div className={`${slides.length<2?"hidden":"visible"}`}>
+              {/* Navigation Buttons */}
+              <button
+                  onClick={prevSlide}
+                  className="absolute top-1/2 left-1 -translate-y-1/2 text-white p-2"
+              >
+                  <img src={previousBtn} alt="" className="h-6"/>
+              </button>
+              <button
+                  onClick={nextSlide}
+                  className="absolute top-1/2 right-1 -translate-y-1/2 text-white p-2"
+              >
+                  <img src={nextBtn} alt="" className="h-6"/>
+              </button>
+
+              {/* Indicators */}
+              <div className="w-full flex justify-center items-center space-x-3">
+                  <div className="absolute bottom-3 space-x-3">
+                      {slides.map((_, index) => (
+                      <button key={index} onClick={() => setCurrentIndex(index)} className={`w-3 h-3 rounded-full ${currentIndex === index?"bg-gray-300":"bg-gray-800"}`}></button>
+                      ))}
+                  </div>
+              </div>
+          </div>
       </div>
-      <button
-        onClick={prevSlide}
-        className="absolute top-1/2 left-2 transform -translate-y-1/2 text-white"
-      >
-        <img src={previousBtn} alt="Previous" className="h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white"
-      >
-        <img src={nextBtn} alt="Next" className="h-6" />
-      </button>
-    </div>
-  );
+  )
 }
 
 // Post Component
 function Post({ slides, textOnly }) {
   return (
-    <div className="max-w-lg mx-auto bg-gray-800 border border-neutral-700 rounded-lg mt-6">
-      <div className="flex items-center p-4 border-b border-neutral-700">
+    <div className="max-w-lg mx-auto bg-black border border-gray-700 rounded-lg mt-6 shadow-md">
+      {/* Header */}
+      <div className="flex items-center p-4 border-b border-gray-700">
         <img
           src="https://cdn.pixabay.com/photo/2023/02/23/10/16/ai-generated-7808455_960_720.jpg"
           alt="Profile"
-          className="w-10 h-10 rounded-full"
+          className="w-10 h-10 rounded-full border border-gray-600"
         />
         <div className="ml-4">
-          <h3 className="font-semibold">Username</h3>
-          <p className="text-sm text-gray-400">Username</p>
+          <h3 className="font-semibold text-white">Username</h3>
+          <p className="text-sm text-gray-500">@username</p>
         </div>
-        <p className="ml-auto text-sm text-gray-500">Nov 15, 2024</p>
+        <p className="ml-auto text-sm text-gray-600">Nov 15, 2024</p>
       </div>
+
+      {/* Media Post */}
       {!textOnly && slides && <Carousel slides={slides} />}
+
+      {/* Text Post */}
       {textOnly && (
         <div className="p-4">
-          <p className="text-gray-300">
+          <p className="text-gray-300 leading-relaxed">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
             sapiente!
           </p>
         </div>
       )}
-      <div className="p-4 flex items-center space-x-4 text-gray-400">
-        <button>
-          <img src={like} alt="Like" className="h-6" />
+
+      {/* Footer */}
+      <div className="p-4 flex items-center space-x-6 text-gray-500">
+        <button className="flex items-center space-x-1 hover:text-white transition">
+          <img src={like} alt="Like" className="h-5" />
+          <span className="text-sm">Like</span>
         </button>
-        <button>
-          <img src={comment} alt="Comment" className="h-6" />
+        <button className="flex items-center space-x-1 hover:text-white transition">
+          <img src={comment} alt="Comment" className="h-5" />
+          <span className="text-sm">Comment</span>
         </button>
         <input
           type="text"
           placeholder="Write a comment..."
-          className="flex-1 bg-gray-700 p-2 rounded-lg"
+          className="flex-1 bg-gray-800 text-gray-300 placeholder-gray-500 p-2 rounded-lg focus:ring focus:ring-gray-500 focus:outline-none"
         />
       </div>
     </div>
   );
 }
+
 
 // Main Profile Page
 export default function Profile() {
@@ -180,9 +192,3 @@ export default function Profile() {
     </div>
   );
 }
-
-
-
-
-
-
