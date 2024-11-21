@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupRequest, signupSuccess, signupFailure } from "./redux/authSlice";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 
 export default function SignupPage({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -35,6 +37,7 @@ export default function SignupPage({ isOpen, onClose }) {
 
       dispatch(signupSuccess({ user: response.data.user, token: response.data.token }));
       onClose();
+      navigate("/login"); // Navigate to the login page after successful signup
     } catch (error) {
       dispatch(signupFailure(error.response?.data?.message || "An error occurred"));
       setErrorMessage(error.response?.data?.message || "An error occurred");
@@ -99,6 +102,16 @@ export default function SignupPage({ isOpen, onClose }) {
               Sign Up
             </button>
           </form>
+
+          <p className="text-sm text-gray-600 mt-4 text-center">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")} // Navigate to the login page on click
+              className="text-blue-500 cursor-pointer hover:underline"
+            >
+              Login here
+            </span>
+          </p>
         </div>
       </div>
     </div>

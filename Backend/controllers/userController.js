@@ -56,13 +56,14 @@ export const registerUser = async (req, res) => {
 // Login User
 export const login = async (req, res) => {
     try {
-        const { email, password, role } = req.body;
+        const { email, password } = req.body;
 
-        if (!email || !password || !role) {
+        if (!email || !password) {
             return res.status(400).json({ message: "All fields are required.", success: false });
         }
 
-        const user = await User.findOne({ email });
+        // Make email case-insensitive
+        const user = await User.findOne({ email: email.toLowerCase() });
         if (!user) {
             return res.status(404).json({ message: 'User not found', success: false });
         }
@@ -70,10 +71,6 @@ export const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Incorrect email or password', success: false });
-        }
-
-        if (role !== user.role) {
-            return res.status(400).json({ message: "Account doesn't exist with the current role", success: false });
         }
 
         const tokenData = { userId: user._id };
@@ -87,6 +84,7 @@ export const login = async (req, res) => {
         }).status(200).json({ message: `Welcome back ${user.fullname}`, user, success: true });
 
     } catch (error) {
+        console.error("Login error:", error); // Log the error for debugging
         return res.status(500).json({ message: "Server error. Please try again later.", success: false, error: error.message });
     }
 };
