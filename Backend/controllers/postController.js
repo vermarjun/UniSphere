@@ -1,4 +1,4 @@
-import {Post} from '../model/posts.js';  
+import { Post } from '../model/posts.js';  
 
 // Get posts
 export async function fetchPosts(req, res){
