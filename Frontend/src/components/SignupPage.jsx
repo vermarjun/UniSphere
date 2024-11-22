@@ -1,48 +1,44 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupRequest, signupSuccess, signupFailure } from "./redux/authSlice";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 
 export default function SignupPage({ isOpen, onClose }) {
-  if (!isOpen) return null; // Do not render if the modal is not open
+  if (!isOpen) return null;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
-  // State for form inputs
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // Form validation (basic example)
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
 
-    // Dispatch signup request
     dispatch(signupRequest());
 
     try {
       const response = await axios.post("http://localhost:8000/api/v1/users/register", {
-        fullName,
+        fullname, // Changed from fullName to fullname
         email,
         phoneNumber,
         password,
-        role,
       });
 
-      // On successful signup
       dispatch(signupSuccess({ user: response.data.user, token: response.data.token }));
-      onClose(); // Close the modal
+      onClose();
+      navigate("/login"); // Navigate to the login page after successful signup
     } catch (error) {
-      // On error
       dispatch(signupFailure(error.response?.data?.message || "An error occurred"));
       setErrorMessage(error.response?.data?.message || "An error occurred");
     }
@@ -52,10 +48,7 @@ export default function SignupPage({ isOpen, onClose }) {
     <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 shadow-lg max-w-md w-full relative">
-          <button
-            onClick={onClose}
-            className="absolute top-3 right-3 text-gray-500 hover:text-black"
-          >
+          <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-black">
             &times;
           </button>
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Create Account</h2>
@@ -63,17 +56,15 @@ export default function SignupPage({ isOpen, onClose }) {
             Fill in the details below to create your account.
           </p>
 
-          {errorMessage && (
-            <p className="text-red-500 text-sm mb-3">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="text-red-500 text-sm mb-3">{errorMessage}</p>}
 
           <form onSubmit={handleSignup}>
             <input
               type="text"
               placeholder="Full Name"
               className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={fullname} // Updated here
+              onChange={(e) => setFullname(e.target.value)} // Updated here
             />
             <input
               type="email"
@@ -103,15 +94,6 @@ export default function SignupPage({ isOpen, onClose }) {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <select
-              className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="">Select Role</option>
-              <option value="moderator">Moderator</option>
-              <option value="college authority">College Authority</option>
-            </select>
 
             <button
               type="submit"
@@ -120,9 +102,18 @@ export default function SignupPage({ isOpen, onClose }) {
               Sign Up
             </button>
           </form>
+
+          <p className="text-sm text-gray-600 mt-4 text-center">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")} // Navigate to the login page on click
+              className="text-blue-500 cursor-pointer hover:underline"
+            >
+              Login here
+            </span>
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
