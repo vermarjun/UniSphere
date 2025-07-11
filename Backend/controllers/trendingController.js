@@ -1,5 +1,6 @@
-import { Post } from '../model/posts.js';
+import { Post } from '../models/posts.model.js';
 import { Event } from '../models/events.model.js';
+import { Notification } from '../models/notification.model.js';
 
 // Adjustable weights
 const LIKE_WEIGHT = 2;

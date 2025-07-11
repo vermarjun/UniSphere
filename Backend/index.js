@@ -7,7 +7,7 @@ import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
 import searchRoutes from "./Router/searchRoute.js"; // Import search routes
 import leaderboardRoutes from "./Router/leaderboard.route.js"; // Import leaderboard routes
-import trendingRoutes from "./Router/trending.route.js"; // Import trending routes
+import trendingRoutes from "./Router/trendingRoute.js"; // Import trending routes
 import marketRoutes from "./Router/market.route.js"; // Import market routes
 import confessionRoutes from "./Router/confession.route.js"; // Import confession routes
 import dotenv from "dotenv";

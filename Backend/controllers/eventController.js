@@ -1,4 +1,5 @@
 import { Event } from '../models/events.model.js';  
+import { Notification } from '../models/notification.model.js';
 
 
 // Get Event by ID
@@ -87,6 +88,12 @@ export async function createEvent(req, res){
             comments: [],
         })
         await newEvent.save();
+        await Notification.create({
+          type: 'EVENT_REMINDER',
+          recipient: userId,
+          event: newEvent._id,
+          message: 'Reminder: Your event is scheduled.'
+        });
         return res.status(200).json({message:"Event Created!", success:true});
     } catch(error) {
         return res.status(500).json({

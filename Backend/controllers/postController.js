@@ -1,4 +1,6 @@
 import { Post } from '../models/posts.model.js' 
+import { Notification } from '../models/notification.model.js';
+import { Comment } from '../models/comments.model.js';
 
 // Get Post by ID
 export async function getPostById(req, res) {
@@ -144,5 +146,83 @@ export async function searchPosts(req, res) {
         return res.status(200).json({ posts, success: true });
     } catch (error) {
         return res.status(500).json({ message: "Server error. Please try again later.", success: false, error: error.message });
+    }
+}
+
+// Comment on a post
+export async function commentOnPost(req, res) {
+    try {
+        const { id } = req.params; // post id
+        const { content, replyTo } = req.body; // replyTo is optional (comment id)
+        const userId = req.userId;
+        if (!content) {
+            return res.status(400).json({ message: 'Comment content is required', success: false });
+        }
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found', success: false });
+        }
+        // Create comment
+        const newComment = await Comment.create({ userId, content });
+        post.comments.push({ commentId: newComment._id });
+        await post.save();
+        // Notify post owner (if not self)
+        if (!post.userId.equals(userId)) {
+            await Notification.create({
+                type: 'NEW_COMMENT',
+                recipient: post.userId,
+                sender: userId,
+                post: post._id,
+                message: 'Someone commented on your post.'
+            });
+        }
+        // If replyTo is provided, notify the original commenter (if not self)
+        if (replyTo) {
+            const parentComment = await Comment.findById(replyTo);
+            if (parentComment && !parentComment.userId.equals(userId)) {
+                await Notification.create({
+                    type: 'COMMENT_REPLY',
+                    recipient: parentComment.userId,
+                    sender: userId,
+                    post: post._id,
+                    message: 'Someone replied to your comment.'
+                });
+            }
+        }
+        return res.status(201).json({ message: 'Comment added', success: true, comment: newComment });
+    } catch (error) {
+        return res.status(500).json({ message: 'Comment failed', success: false, error: error.message });
+    }
+}
+
+// Like or unlike a post
+export async function likePost(req, res) {
+    try {
+        const { id } = req.params; // post id
+        const userId = req.userId;
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found', success: false });
+        }
+        const liked = post.likes.includes(userId);
+        if (liked) {
+            post.likes.pull(userId);
+        } else {
+            post.likes.push(userId);
+            // Notify post owner (if not self)
+            if (!post.userId.equals(userId)) {
+                await Notification.create({
+                    type: 'NEW_LIKE',
+                    recipient: post.userId,
+                    sender: userId,
+                    post: post._id,
+                    message: 'Someone liked your post.'
+                });
+            }
+        }
+        await post.save();
+        return res.status(200).json({ message: liked ? 'Unliked' : 'Liked', success: true });
+    } catch (error) {
+        return res.status(500).json({ message: 'Like failed', success: false, error: error.message });
     }
 }
