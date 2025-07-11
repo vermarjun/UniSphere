@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";  // Import Morgan for logging
 import cors from "cors";
 import connectDB from "./util/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan("dev"));  // Use Morgan for logging HTTP requests
 
 const corsOptions = {
     origin: 'http://localhost:5173',
