@@ -1,6 +1,6 @@
 import express from 'express';  // Import Express
 import authMiddleware from '../middlewares/auth.js';  // Import authentication middleware (if any)
-import {fetchEvents, createEvent, editEvent, deleteEvent} from '../controllers/eventController.js'
+import {fetchEvents, createEvent, editEvent, deleteEvent,getEventById} from '../controllers/eventController.js'
 
 const router = express.Router();  // Initialize the router
 
@@ -15,5 +15,8 @@ router.post('/edit', authMiddleware, editEvent);
 
 // Delete 
 router.post('/delete', authMiddleware, deleteEvent);
+
+router.get("/:id",authMiddleware, getEventById);
+
 
 export default router;
