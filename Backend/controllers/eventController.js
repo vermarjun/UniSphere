@@ -1,6 +1,39 @@
-import { Event } from '../model/events.js';  
+import { Event } from '../models/events.model.js';  
 
-// Get posts
+
+// Get Event by ID
+export async function getEventById(req, res) {
+    try {
+        const { id } = req.params;
+
+        const event = await Event.findById(id)
+            .populate('userId', 'name email') // populate if needed
+            .lean();
+
+        if (!event) {
+            return res.status(404).json({
+                message: "Event not found",
+                success: false
+            });
+        }
+
+        event.upvoteCount = event.upvotes.length;
+
+        return res.status(200).json({
+            message: event,
+            success: true
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Server error. Please try again later.",
+            success: false,
+            error: error.message
+        });
+    }
+}
+
+// Get events
 export async function fetchEvents(req, res){
     try {
         const {page, limit} = req.query;

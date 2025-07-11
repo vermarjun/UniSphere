@@ -1,4 +1,39 @@
-import { Post } from '../model/posts.js';  
+import { Post } from '../models/posts.model.js' 
+
+// Get Post by ID
+export async function getPostById(req, res) {
+    try {
+        const { id } = req.params;
+
+        const post = await Post.findById(id)
+            .populate('userId', 'name email') // optional: populate user details
+            .lean(); // convert to plain JS object for easy manipulation
+
+        if (!post) {
+            return res.status(404).json({
+                message: "Post not found",
+                success: false
+            });
+        }
+
+        // Optional: include likeCount
+        post.likeCount = post.likes?.length || 0;
+
+        return res.status(200).json({
+            message: post,
+            success: true
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Server error. Please try again later.",
+            success: false,
+            error: error.message
+        });
+    }
+}
+
+
 
 // Get posts
 export async function fetchPosts(req, res){
