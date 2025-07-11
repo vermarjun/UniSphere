@@ -6,6 +6,10 @@ import userRoutes from './Router/userRoute.js';  // Import user routes
 import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
 import searchRoutes from "./Router/searchRoute.js"; // Import search routes
+import leaderboardRoutes from "./Router/leaderboard.route.js"; // Import leaderboard routes
+import trendingRoutes from "./Router/trending.route.js"; // Import trending routes
+import marketRoutes from "./Router/market.route.js"; // Import market routes
+import confessionRoutes from "./Router/confession.route.js"; // Import confession routes
 import dotenv from "dotenv";
 
 dotenv.config({});
@@ -44,6 +48,8 @@ app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1', leaderboardRoutes); // Prefix for leaderboard routes
 
 app.use('/api/v1/trending', trendingRoutes);
+app.use('/api/v1/market', marketRoutes); // Prefix for market routes
+app.use('/api/v1/confession', confessionRoutes); // Prefix for confession routes
 
 // Start the server
 const PORT = 8000 || process.env.PORT;
