@@ -1,4 +1,4 @@
-import { Event } from '../model/events.js';  
+import { Event } from '../models/events.model.js';  
 
 // Get posts
 export async function fetchEvents(req, res){
