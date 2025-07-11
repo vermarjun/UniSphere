@@ -5,6 +5,7 @@ import connectDB from "./util/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
 import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
+import searchRoutes from "./Router/searchRoute.js"; // Import search routes
 import dotenv from "dotenv";
 import { Post } from "./models/posts.model.js";
 
