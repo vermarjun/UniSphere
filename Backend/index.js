@@ -5,7 +5,6 @@ import connectDB from "./util/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
 import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
-import marketRoutes from "./Router/market.route.js"; // Import market routes
 import dotenv from "dotenv";
 import { Post } from "./models/posts.model.js";
 
@@ -39,6 +38,8 @@ app.use('/api/v1/users', userRoutes);  // Prefix for user-related routes
 app.use('/api/v1/post', postRoutes);  // Prefix for user-related routes
 
 app.use('/api/v1/event', eventRoutes);
+
+app.use('/api/v1/search', searchRoutes);
 
 app.get('/api/v1/trending', async (req, res)=>{
     try {
