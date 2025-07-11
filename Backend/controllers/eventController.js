@@ -37,7 +37,7 @@ export async function getEventById(req, res) {
 // Get events
 export async function fetchEvents(req, res){
     try {
-        const {page, limit} = req.query;
+        const {page, limit = 10} = req.query;
         const skip = (page - 1) * limit; // Calculate the number of documents to skip
         const paginatedEvents = await Event.aggregate([
             {
