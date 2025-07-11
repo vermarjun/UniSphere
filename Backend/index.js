@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import connectDB from "./utill/DataBase.js";
+import connectDB from "./util/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
 import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
