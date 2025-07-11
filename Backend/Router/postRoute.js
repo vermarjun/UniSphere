@@ -14,7 +14,7 @@ router.post('/add', authMiddleware, createPost);
 router.post('/edit', authMiddleware, editPost);
 
 // Delete 
-router.post('/delete', authMiddleware, deletePost);
+router.delete('/delete', authMiddleware, deletePost);
 
 router.get("/:id", authMiddleware,getPostById);
 

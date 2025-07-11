@@ -5,13 +5,13 @@ import {
   likeProfile,
   getMyDatingProfile,
 } from "../controllers/dating.controller.js";
-import { isAuthenticated } from "../middlewares/auth.middleware.js";
+import authMiddleware from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/profile", isAuthenticated, createOrUpdateDatingProfile);
-router.get("/my-profile", isAuthenticated, getMyDatingProfile);
-router.get("/browse", isAuthenticated, browseDatingProfiles);
-router.post("/like", isAuthenticated, likeProfile);
+router.post("/profile", authMiddleware, createOrUpdateDatingProfile);
+router.get("/my-profile", authMiddleware, getMyDatingProfile);
+router.get("/browse", authMiddleware, browseDatingProfiles);
+router.post("/like", authMiddleware, likeProfile);
 
 export default router;

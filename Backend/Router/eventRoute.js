@@ -14,7 +14,7 @@ router.post('/add', authMiddleware, createEvent);
 router.post('/edit', authMiddleware, editEvent);
 
 // Delete 
-router.post('/delete', authMiddleware, deleteEvent);
+router.delete('/delete', authMiddleware, deleteEvent);
 
 router.get("/:id",authMiddleware, getEventById);
 

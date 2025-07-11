@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";  // Import Morgan for logging
 import cors from "cors";
 import connectDB from "./util/DataBase.js";
 import userRoutes from './Router/userRoute.js';  // Import user routes
@@ -7,7 +8,7 @@ import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
 import searchRoutes from "./Router/searchRoute.js"; // Import search routes
 import leaderboardRoutes from "./Router/leaderboard.route.js"; // Import leaderboard routes
-import trendingRoutes from "./Router/trending.route.js"; // Import trending routes
+import trendingRoutes from "./Router/trendingRoute.js"; // Import trending routes
 import marketRoutes from "./Router/market.route.js"; // Import market routes
 import confessionRoutes from "./Router/confession.route.js"; // Import confession routes
 import dotenv from "dotenv";
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan("dev"));  // Use Morgan for logging HTTP requests
 
 const corsOptions = {
     origin: 'http://localhost:5173',

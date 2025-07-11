@@ -87,7 +87,7 @@ export async function createEvent(req, res){
             comments: [],
         })
         await newEvent.save();
-        return res.status(200).json({message:"Event Created!", success:true});
+        return res.status(200).json({message:newEvent, success:true});
     } catch(error) {
         return res.status(500).json({
             message: "Server error. Please try again later.",

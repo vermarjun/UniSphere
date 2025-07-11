@@ -1,4 +1,4 @@
-import { Post } from '../model/posts.js';
+import { Post } from '../models/posts.model.js';
 import { Event } from '../models/events.model.js';
 
 // Adjustable weights

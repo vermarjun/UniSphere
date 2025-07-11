@@ -69,7 +69,7 @@ export async function fetchPosts(req, res){
 // Create Post
 export async function createPost(req, res){
     try {
-        const {caption, media} = req.body;
+        const { caption, media } = req.body;
         const userId = req.userId;
         if (!userId) {
             return res.status(404).json({ message: "User not found", success: false });
@@ -85,7 +85,7 @@ export async function createPost(req, res){
             comments: [],
         })
         await newPost.save();
-        return res.status(200).json({message:"Post Created!", success:true});
+        return res.status(200).json({message:newPost, success:true});
     } catch(error) {
         return res.status(500).json({
             message: "Server error. Please try again later.",
