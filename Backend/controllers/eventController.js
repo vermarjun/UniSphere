@@ -1,4 +1,5 @@
 import { Event } from '../models/events.model.js';  
+import { Notification } from '../models/notification.model.js';
 
 
 // Get Event by ID
@@ -36,7 +37,7 @@ export async function getEventById(req, res) {
 // Get events
 export async function fetchEvents(req, res){
     try {
-        const {page, limit} = req.query;
+        const {page, limit = 10} = req.query;
         const skip = (page - 1) * limit; // Calculate the number of documents to skip
         const paginatedEvents = await Event.aggregate([
             {
@@ -87,7 +88,7 @@ export async function createEvent(req, res){
             comments: [],
         })
         await newEvent.save();
-        return res.status(200).json({message:newEvent, success:true});
+        return res.status(200).json({message:"Event Created!", success:true});
     } catch(error) {
         return res.status(500).json({
             message: "Server error. Please try again later.",

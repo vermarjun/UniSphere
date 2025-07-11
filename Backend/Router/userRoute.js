@@ -1,6 +1,7 @@
 import express from 'express';  // Import Express
-import { registerUser, login, logoutUser, updateProfile,getUserById } from '../controllers/userController.js';  // Import controllers
+import { registerUser, login, logoutUser, updateProfile, getUserById, followUser, unfollowUser } from '../controllers/userController.js';  // Import controllers
 import authMiddleware from '../middlewares/auth.js';  // Import authentication middleware (if any)
+import { getUserNotifications, createAdminAnnouncement } from '../controllers/notification.controller.js';
 // import { singleUpload } from '../Middlewares/multer.js';
 const router = express.Router();  // Initialize the router
 
@@ -17,6 +18,16 @@ router.get('/logout', logoutUser);
 router.post('/profile', authMiddleware, updateProfile);
 router.get("/:id",authMiddleware, getUserById);
 
+// Follow and unfollow routes
+router.post('/:id/follow', authMiddleware, followUser);
+
+router.post('/:id/unfollow', authMiddleware, unfollowUser);
+
+// Fetch notifications for the authenticated user
+router.get('/notifications', authMiddleware, getUserNotifications);
+
+// Admin announcement endpoint
+router.post('/notifications/announcement', authMiddleware, createAdminAnnouncement);
 
 
 export default router;
