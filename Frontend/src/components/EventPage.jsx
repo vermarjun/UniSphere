@@ -296,7 +296,7 @@ function EventPage() {
   }
   function handleScroll(){
     const {scrollTop, scrollHeight, clientHeight} = divRef.current;
-    console.log(scrollTop, scrollHeight, clientHeight)
+    // console.log(scrollTop, scrollHeight, clientHeight)
     if (!hasMore || loading) return; //Aur nahi hain post, dont fetch more, user has reached END
     if (scrollTop+clientHeight >= scrollHeight-200){
       fetchMoreData();
