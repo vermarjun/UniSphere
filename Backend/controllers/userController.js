@@ -1,4 +1,5 @@
-import User from '../models/user.model.js';  
+import User from '../models/user.model.js'; 
+import { Post } from "../models/posts.model.js"; 
 import bcrypt from 'bcryptjs';  
 import jwt from 'jsonwebtoken';  
 
@@ -154,4 +155,47 @@ export const updateProfile = async (req, res) => {
             error: error.message
         });
     }
+};
+
+
+
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Fetch user
+    const user = await User.findById(id).lean(); // .lean() to get plain JS object
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    // Fetch posts created by this user
+    const posts = await Post.find({ userId: id })
+      .sort({ updatedAt: -1 }) // optional: most recent first
+      .lean();
+
+    // Add like counts to each post
+    const postsWithLikeCounts = posts.map((post) => ({
+      ...post,
+      likeCount: post.likes?.length || 0,
+    }));
+
+    return res.status(200).json({
+      message: "User fetched successfully",
+      success: true,
+      user,
+      posts: postsWithLikeCounts,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server error. Please try again later.",
+      success: false,
+      error: error.message,
+    });
+  }
 };
