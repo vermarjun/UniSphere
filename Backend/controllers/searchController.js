@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'; 
+import User from '../models/user.model.js';
+import { Post } from '../models/posts.model.js';
 
 // Search Users by Username (fullname)
 export const searchUsers = async (req, res) => {
