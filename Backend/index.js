@@ -6,8 +6,8 @@ import userRoutes from './Router/userRoute.js';  // Import user routes
 import postRoutes from "./Router/postRoute.js";
 import eventRoutes from "./Router/eventRoute.js"
 import searchRoutes from "./Router/searchRoute.js"; // Import search routes
+import trendingRoutes from "./Router/trendingRoute.js"; // Import trending routes
 import dotenv from "dotenv";
-import { Post } from "./models/posts.model.js";
 
 dotenv.config({});
 
@@ -42,31 +42,7 @@ app.use('/api/v1/event', eventRoutes);
 
 app.use('/api/v1/search', searchRoutes);
 
-app.get('/api/v1/trending', async (req, res)=>{
-    try {
-        const limit = 5;
-        const trendingPosts = await Post.aggregate([
-            {
-              $addFields: {
-                likeCount: { $size: "$likes" }, // Stage 1: Add a "likeCount" field
-              },
-            },
-            {
-              $sort: { likeCount: -1}, // Stage 2: Sort by likeCount
-            },
-            {
-              $limit: parseInt(limit), // Stage 3: Limit the number of documents fetched
-            },
-        ]);
-        return res.status(200).json({message:trendingPosts, success:true});
-    } catch(error) {
-        return res.status(500).json({
-            message: "Server error. Please try again later.",
-            success: false,
-            error: error.message
-        });
-    }
-})
+app.use('/api/v1/trending', trendingRoutes);
 
 // Start the server
 const PORT = 8000 || process.env.PORT;
