@@ -24,7 +24,7 @@ router.post('/:id/follow', authMiddleware, followUser);
 router.post('/:id/unfollow', authMiddleware, unfollowUser);
 
 // Fetch notifications for the authenticated user
-router.get('/notifications', authMiddleware, getUserNotifications);
+router.get('/notification/notifications', authMiddleware, getUserNotifications);
 
 // Admin announcement endpoint
 router.post('/notifications/announcement', authMiddleware, createAdminAnnouncement);
